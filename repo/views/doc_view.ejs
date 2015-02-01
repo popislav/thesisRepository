@@ -1,0 +1,56 @@
+<% include header.ejs %>
+<body>
+<div class="container">
+
+        <% include navigation.ejs %>
+
+        <div class="page-header text-center">
+        <h1><span class="fa fa-external-link"/> Document View</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+    <hr/>
+    <br/>
+
+        <div id="thesis_view" >
+        <table>
+          <div>
+              <h3 id="document1">&nbspDocument <%= thesis.title %></a></h3>
+              <ul>
+                  <li>Author: <span id="a_surname"><%= thesis.author_firstname %> </span>, <span id="a_name"><%= thesis.author_lastname %> </span></li> <!--opens thesis.html with authors name already searched-->
+                  <li>Mentor: <span id="m_surname"><%= thesis.mentor_firstname %></span>, <span id="m_name"><%= thesis.mentor_lastname %></span> </li>
+                  <li>Type: <span id="type"><%= thesis.thesis_type.name %></span></li>
+                  <li>Publisher: <span id="type"><%= thesis.publisher %></span></li>
+
+              </ul>
+          </div>
+        </table>
+        <h4 class="text-center">Abstract:</h4>
+        <p class="text-center"><%= thesis.abstract %></p>
+                <br/>
+        <ul><li>Keywords:<% thesis.keywords.forEach( function( item ){ %>
+        <a><%= item %></a>
+        <% }); %></li>
+        </ul>
+
+
+        </form>
+
+        <div id="content_view">
+            <h3><span class="fa fa-file-pdf-o"></span> Content View - PDF</h3>
+            <iframe src = "../public/ViewerJS/#../../<%= thesis.path_pdf %>" width='700' height='700' allowfullscreen webkitallowfullscreen></iframe>
+        </div>
+        <div align="center"><a href="<%= thesis.path_pdf%>" download="<%= thesis.title %>.pdf">Download Thesis</a></div>
+
+                <div id="content_view">
+            <h3><span class="fa fa-file-text-o"></span>  Content View - BibTeX</h3>
+            <textarea  cols='68' rows='10' id="bibtex_input"><%= bibtexdata %></textarea>
+        <div align="center"><a href="<%= thesis.path_bibtex%>" download="<%= thesis.title %>.bibtex">Download Bibtex</a></div>
+
+        </div>
+    </div>
+        <br/>
+
+    <% include footer.ejs %>
+</div>
+</body>
+</html>

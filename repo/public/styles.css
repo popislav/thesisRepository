@@ -1,0 +1,39 @@
+body{
+    margin: 1%;
+}
+
+#header{
+                background-color: #F0FFF0;
+                border-radius: 5px;
+}
+
+#footer{
+                background-color: #FEF0CE;
+                border-radius: 5px;
+}
+
+
+#header h1 {
+    display: inline;
+}
+
+#header img {
+    width: 10%;
+    height: auto;
+}
+
+#content_view{
+    text-align: center;
+}
+
+.err {
+        color: red;
+}
+
+.good{
+        color:green;
+}
+
+h1, h2,h3,h5 {
+    display: inline;
+}

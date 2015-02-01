@@ -1,0 +1,12 @@
+<nav class="pagination">
+
+    <% if (prev) { %>
+        <a href="/pages/<%= (page + 1) %>">Previous</a>
+    <% } %>
+
+    <% if (next) { %>
+        <a href="/pages/<%= (page - 1) %>">Next</a>
+    <% } %>
+
+</nav>
+

@@ -1,0 +1,55 @@
+<% include header.ejs %>
+<body>
+<div class="container">
+	<div id="header" class="bg-info">
+			<ul class="nav nav-tabs nav-justifier" role="tablist">
+				
+				<li><a href="/">Home</a></li>
+				<li><a href="/search">Search</a></li>
+				<li><a href="/submit">Submit</a></li>
+				<li class="active"><a href="/all">All Thesis</a></li>
+			</ul>
+		</div>
+	
+	<div class="page-header text-center">
+        <h1><span class="fa fa-files-o"/> <%= theses.length %> Search Results for query <%= queryparam %></h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+    <hr/>
+    <br/>
+
+<% include search_bar.ejs %>
+    <hr/>
+    <br/>
+
+
+
+    <div id="all">
+        <table>
+			<% theses.forEach( function( item,index ){ %>
+
+            <tr>
+                <td>
+                    <h3><%= index+1 %>. <a href="/doc_view/<%= item._id %>" id="document2"><%= item.title %></a></h3>
+                    
+                    <ul>
+						<li>Author: <span id="a_surname"> <%= item.author_firstname %></span>, <span id="a_name"><%= item.author_lastname %> </span></li> <!--opens thesis.html with authors name already searched-->
+						<li>Mentor: <span id="m_surname"><%= item.mentor_firstname %></span>, <span id="m_name"><%= item.mentor_lastname %></span> </li>
+						<li>Type: <span id="type"><%= item.thesis_type.name %> </span></li>
+					</ul>
+					
+               </td>
+            </tr>
+            <% }); %>
+
+        </table>
+    </div>
+	<br/>
+    <div id="footer" class="page-footer text-center">
+		<hr/>
+		<br/>
+        <p><span class="glyphicon glyphicon-copyright-mark"></span>Expendablezz</p> <!--copyright glyph don't work-->
+    </div>
+</div>
+</body>
+</html>

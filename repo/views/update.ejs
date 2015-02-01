@@ -1,0 +1,110 @@
+<% include header.ejs %>
+<body>
+<div class="container">
+
+     <% include navigation.ejs %>
+
+    <!--  -->
+    <div class="page-header text-center">
+        <h1><span class="fa fa-paperclip"/> Change the Thesis <%= thesis.title %></h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+    <hr/>
+    <br/>
+<ul>
+<p class="good"><b><%= typeof message!='undefined' ? message : '' %></b></p>
+</ul>
+<ul><% if( typeof(errors) !='undefined')  { %>
+    <p class="err"><b>The Following Errors occured: </b></p>
+    <% errors.forEach(function(item) { %>
+        <li class="err"><b><i><%= item.msg %></i></b></li>
+    <% }); } %>
+    <hr/>
+    <br/>
+</ul>
+<form action="/api/update/<%= thesis._id %>" method="post" enctype="multipart/form-data">
+    <table class="table-hover">
+</h4></br>
+        <tr>
+            <th><label for="id_type1">Thesis Type:<%= thesis.thesis_type.name %></label></th>
+        </tr>
+        <tr>
+            <th><label for="id_title1">Title:</label></th>
+            <td><textarea id="id_title1" rows="3" cols="44" name="title"><%= thesis.title %></textarea></td>
+        </tr>
+        <tr>
+            <th><label for="id_author1">Author(s):</label></th>
+            <td><div id="id_author1">
+                <input type="text" id="author1surname" name="author_firstname" value=<%= thesis.author_firstname %> placeholder="Enter surname"/>
+                <input type="text" id="author1name" name="author_lastname" value=<%= thesis.author_lastname %> placeholder="Enter name"/>
+<!--
+                <input type="button" class="authorsbutton" value="Add another author">
+-->
+            </div></td>
+
+        </tr>
+
+        <tr>
+        <th><label for="id_doi">Publisher:</label></th>
+        <td><input type="text" id="id_publisher" name="publisher" value="<%= thesis.publisher %>"/></td>
+        </tr>
+
+        <tr>
+            <th><label for="id_summary1">Abstract:</label></th>
+            <td><textarea id="id_summary1" rows="6" cols="44" name="abstract" placeholder="Enter abstract"><%= thesis.abstract %></textarea></td>
+        </tr>
+        <tr>
+            <th><label for="id_mentor1">Mentor:</label></th>
+            <td><div id="id_mentor1">
+                <input type="text" id="mentor1surname" name="mentor_firstname" value=<%= thesis.mentor_firstname %> placeholder="Enter surname"/>
+                <input type="text" id="mentor1name" name="mentor_lastname" value=<%= thesis.mentor_lastname %> placeholder="Enter name"/>
+            </div></td>
+        </tr>
+        <tr>
+            <th><label for="id_language1">Language:</label></th>
+            <td><select name="language" id="id_language1">
+                <option value="<%= thesis.language %>" selected="selected"><%= thesis.language %></option>
+                <option value="eng">English</option>
+                <option value="ger">German</option>
+            </select></td>
+        </tr>
+        <tr>
+            <th><label for="id_doi">DOI:</label></th>
+            <td><input type="text" id="id_doi" name="doi" placeholder="doi:10.ORGANISATION/ID" value=<%= thesis.doi %>/></td>
+        </tr>
+
+
+    </table>
+    <hr/>
+
+    <hr/>
+    <div id="upload">
+        <h3>Change the Thesis</h3>
+        <input type="submit"/>
+    </div>
+    <hr/>
+
+
+</form>
+
+<% include footer.ejs %>
+
+</div>
+
+</body>
+
+<script type="text/javascript">
+$('.keywordsbutton').on('click', function(){
+        /* var inpCount = $('<input type="hidden" id="keyword1count" name="keyword.count" value="1"/>'); */
+        var inp = $('<input type="text" class="keywords" name="keywords" value="" placeholder="Enter new keyword"/>');
+
+        /* inpCount.insertBefore(".submit"); */
+        inp.insertBefore(".keywordsbutton");
+
+    });
+
+
+
+
+</script>
+</html>

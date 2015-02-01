@@ -1,0 +1,40 @@
+<% include header.ejs %>
+<body>
+<div class="container">
+
+         <% include navigation.ejs %>
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-search"/> Search</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+        <hr/>
+        <br/>
+
+<% include search_bar.ejs %>
+
+    <hr/>
+
+
+    <div id="recent">
+        <h3>10 Recent Uploads:</h3>
+        <table>
+                        <% theses.forEach( function( item,index ){ %>
+            <tr>
+                <td>
+                    <a href="/searchcategory/<%= item.thesis_type.name %>"><%= item.thesis_type.name %></a>
+                </td>
+                <td>
+                    <a id="document1" href="/doc_view/<%= item._id %>"><%= item.title %></a>
+                </td>
+            </tr>
+                        <% }); %>
+
+        </table>
+    </div>
+    <br/>
+
+    <% include footer.ejs %>
+</div>
+</body>
+</html>

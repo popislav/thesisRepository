@@ -1,0 +1,173 @@
+<% include header.ejs %>
+<body>
+<div class="container">
+
+     <% include navigation.ejs %>
+
+    <!--  -->
+    <div class="page-header text-center">
+        <h1><span class="fa fa-paperclip"/> Submit the Thesis</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+    <hr/>
+    <br/>
+<ul>
+<p class="good"><b><%= typeof message!='undefined' ? message : '' %></b></p>
+</ul>
+<ul><% if( typeof(errors) !='undefined')  { %>
+    <p class="err"><b>The Following Errors occured: </b></p>
+    <% errors.forEach(function(item) { %>
+        <li class="err"><b><i><%= item.msg %></i></b></li>
+    <% }); } %>
+    <hr/>
+    <br/>
+</ul>
+<form action="/api/upload" method="post" enctype="multipart/form-data">
+    <table class="table-hover">
+        <h4>Do you want to parse metadata from the pdf?<input type="checkbox" class="parsepdf" name="parsepdf" value="1"> Yes<br>
+        <p>title, publisher and keywords(splitted with ,) will be automatically parsed.</p>
+</h4></br>
+        <tr>
+            <th><label for="id_type1">Thesis Type:</label></th>
+            <td><select name="thesis_type2" id="id_type1" required>
+                <option value="" selected="selected">Choose...</option>
+                <option value="BsC">Bachelor</option>
+                <option value="Msc">Master</option>
+                <option value="Diss">Disertation</option>
+            </select></td>
+        </tr>
+        <tr>
+            <th><label for="id_title1">Title:</label></th>
+            <td><textarea id="id_title1" rows="3" cols="44" name="title" placeholder="Enter title of the document..."></textarea></td>
+        </tr>
+        <tr>
+            <th><label for="id_author1">Author(s):</label></th>
+            <td><div id="id_author1">
+                <input type="text" id="author1surname" name="author_firstname" value="" placeholder="Enter surname"/>
+                <input type="text" id="author1name" name="author_lastname" value="" placeholder="Enter name"/>
+<!--
+                <input type="button" class="authorsbutton" value="Add another author">
+-->
+            </div></td>
+
+        </tr>
+
+        <tr>
+        <th><label for="id_doi">Publisher:</label></th>
+        <td><input type="text" id="id_publisher" name="publisher" placeholder="Enter publisher"/></td>
+        </tr>
+
+        <tr>
+            <th><label for="id_summary1">Abstract:</label></th>
+            <td><textarea id="id_summary1" rows="6" cols="44" name="abstract" placeholder="Enter abstract"></textarea></td>
+        </tr>
+        <tr>
+            <th><label for="id_keyword1">Keyword:</label></th>
+            <td><div id="id_keyword1">
+                <input type="text" class="keywords" id="keyword1" name="keywords" value="" placeholder="Enter keyword"/>
+                <input type="button" class="keywordsbutton" value="Add another keyword">
+            </div></td>
+        </tr>
+        <tr>
+            <th><label for="id_mentor1">Mentor:</label></th>
+            <td><div id="id_mentor1">
+                <input type="text" id="mentor1surname" name="mentor_firstname" value="" placeholder="Enter surname"/>
+                <input type="text" id="mentor1name" name="mentor_lastname" value="" placeholder="Enter name"/>
+            </div></td>
+        </tr>
+        <tr>
+            <th><label for="id_language1">Language:</label></th>
+            <td><select name="language" id="id_language1">
+                <option value="" selected="selected">Choose...</option>
+                <option value="eng">English</option>
+                <option value="ger">German</option>
+            </select></td>
+        </tr>
+        <tr>
+            <th><label for="id_doi">DOI:</label></th>
+            <td><input type="text" id="id_doi" name="doi" placeholder="doi:10.ORGANISATION/ID"/></td>
+        </tr>
+
+
+    </table>
+    <hr/>
+    <div id="upload">
+        <h4>Upload the Thesis</h4>
+		</br>
+        <th><i class="fa fa-file-pdf-o"/></i><label for="id_pdf">PDF:</label></th>
+        <tr id="add_file1">
+            <td>
+                <div id="files1">
+                    <!--<input type="hidden" value="1" name="file_count" id="file_count"/>-->
+                    <input type="file" value="" name="pdf" id="pdf"/>
+                    <br/>
+                    <!--<input type="button" class="add_file" onclick="addFile(this)" value="Add another file"/>-->
+                </div>
+            </td>
+        </tr>
+        <th><i class="fa fa-file-text-o"></i> <label for="id_bibtex">Bibtex:</label></th>
+        <tr id="add_file2">
+            <td>
+                <div id="files2">
+                    <!--<input type="hidden" value="1" name="file_count" id="file_count"/>-->
+                    <input type="file" value="" name="bibtex" id="bibtex"/>
+                    <br/>
+                    <!--<input type="button" class="add_file" onclick="addFile(this)" value="Add another file"/>-->
+                </div>
+            </td>
+        </tr>
+
+    </div>
+    <hr/>
+    <div id="upload">
+        <h3>Submit the Thesis</h3>
+        <input type="submit"/>
+    </div>
+    <hr/>
+
+</form>
+
+<% include footer.ejs %>
+
+</div>
+
+</body>
+
+<script type="text/javascript">
+$('.keywordsbutton').on('click', function(){
+        /* var inpCount = $('<input type="hidden" id="keyword1count" name="keyword.count" value="1"/>'); */
+        var inp = $('<input type="text" class="keywords" name="keywords" value="" placeholder="Enter new keyword"/>');
+
+        /* inpCount.insertBefore(".submit"); */
+        inp.insertBefore(".keywordsbutton");
+
+    });
+
+$('.authorsbutton').on('click', function(){
+        /* var inpCount = $('<input type="hidden" id="keyword1count" name="keyword.count" value="1"/>'); */
+        var inp = $('</br><input type="text" id="author1surname" name="author_firstname" value="" placeholder="Enter surname"/><input type="text" id="author1name" name="author_lastname" value="" placeholder="Enter name"/>');
+
+        /* inpCount.insertBefore(".submit"); */
+        inp.insertBefore(".authorsbutton");
+
+    });
+
+$('.parsepdf').click(function(){
+        var status = $('.parsepdf').is(':checked');
+        tags = ['#id_title1','#id_publisher','.keywords','.keywordsbutton']
+
+        if(status) {
+        tags.forEach(function(entry) {
+        $(entry).prop('disabled', true);
+        });
+        }
+        else {
+            tags.forEach(function(entry) {
+                  $(entry).prop('disabled', false);
+              });
+        }
+        //$('.parsepdf').prop('disabled', true);
+});
+
+</script>
+</html>

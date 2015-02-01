@@ -1,0 +1,33 @@
+<% include header.ejs %>
+<body>
+<div class="container">
+
+         <% include navigation.ejs %>
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-database"/> REST API</h1>
+    </div>
+        <hr/>
+        <br/>
+
+
+    <hr/>
+
+
+    <div id="api">
+        <h3>Rest API:</h3>
+        <p><b>GET: </b> http://localhost:8080/rest/thesis/UNIQUEID<p>
+        <p>Param: Unique Thesis ID</p>
+        <p>Result: Individual Thesis</p>
+        </br>
+        <p><b>GET: </b> http://localhost:8080/rest/theses<p>
+        <p>Result: All Theses</p>
+
+        </p>
+    </div>
+    <br/>
+
+    <% include footer.ejs %>
+</div>
+</body>
+</html>

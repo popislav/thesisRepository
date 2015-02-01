@@ -1,0 +1,671 @@
+
+    ModularMVC framework
+
+
+      Table of Contents
+
+  * Mathods that are triggered automatically by ModularMVC <#MVCAutoMethods>
+  * ModularMVC Interface <#MVCInterface>
+  * ModularMVC Built-in Helpers <#MVCHelpers>
+      o Language module <#LanguageModule>
+      o Notification module <#NotificationModule>
+      o Template module <#TemplateModule>
+      o Widget module <#WidgetModule> 
+
+This framework contains 4 module types:
+
+  * Controller
+  * Model
+  * View
+  * Helper
+
+
+    Mathods that are triggered automatically by ModularMVC
+
+Following methods (if defined in a module) are triggered by the
+framework automatically:
+
+  *
+
+
+            void onRegister()
+
+    It is triggered by the framework automatically as soon as the module
+    is registered successfully.
+    At this moment the DOM is still not ready (not fully loaded) and the
+    widget is not ready neither.
+    It can not be triggered manually.
+  *
+
+
+            void onDomReady()
+
+    It is triggered by the framework automatically as soon as the DOM is
+    ready (fully loaded).
+    At this moment the widget is still not ready, but the module is
+    already registered.
+    It can not be triggered manually.
+  *
+
+
+            void onWidgetReady()
+
+    It is triggered by the framework automatically as soon as the widget
+    is ready.
+    At this moment the module is registered and DOM is ready (fully loaded).
+    It can not be triggered manually.
+  *
+
+
+            void onResize(window_width, window_height)
+
+    It is triggered by the framework automatically as soon as the window
+    is resized.
+    This method is triggered automatically only and only if it is
+    defined in views.
+  *
+
+
+            void onInitialize(params)
+
+    It is triggered on demand by the framework as soon as
+    ModularMVC.initXXX(params) is triggered manually.
+    @see example in section ModularMVC interface initXXX(params)
+      o [Optional] params: arguments to pass to.
+
+
+    ModularMVC Interface
+
+Following interface is provided by ModularMVC framework:
+
+  *
+
+
+            [Boolean] registerModel(modelname, func, force)
+
+    It registers a module of type Model.
+      o [String] modelname: name of the model module.
+      o [function] func: the anonymous function containing the interface
+        of the module.
+      o [Boolean] [Optional] force: TRUE to overwrite the module if
+        already registered. Default value is FALSE.
+      o [Boolean] return value: TRUE if successful, otherwise FALSE. 
+  *
+
+
+            [Boolean] registerView(viewname, func, force)
+
+    It registers a module of type View.
+      o [String] viewname: name of the view module.
+      o [function] func: the anonymous function containing the interface
+        of the module.
+      o [Boolean] [Optional] force: TRUE to overwrite the module if
+        already registered. Default value is FALSE.
+      o [Boolean] return value: TRUE if successful, otherwise FALSE. 
+  *
+
+
+            [Boolean] registerController(controllername, func, force)
+
+    It registers a module of type Controller.
+      o [String] controllername: name of the controller module.
+      o [function] func: the anonymous function containing the interface
+        of the module.
+      o [Boolean] [Optional] force: TRUE to overwrite the module if
+        already registered. Default value is FALSE.
+      o [Boolean] return value: TRUE if successful, otherwise FALSE. 
+  *
+
+
+            [Boolean] registerHelper(helpername, func, force)
+
+    It registers a module of type Helper.
+      o [String] helpername: name of the helper module.
+      o [function] func: the anonymous function containing the interface
+        of the module.
+      o [Boolean] [Optional] force: TRUE to overwrite the module if
+        already registered. Default value is FALSE.
+      o [Boolean] return value: TRUE if successful, otherwise FALSE. 
+  *
+
+
+            [Boolean] registerMVCHelper(helpername, func)
+
+    It registers a module of internal type MVCHelper.
+      o [String] helpername: name of the helper module.
+      o [function] func: the anonymous function containing the interface
+        of the module.
+      o [Boolean] return value: TRUE if successful, otherwise FALSE. 
+  *
+
+
+            [void] unregisterModel(modelname)
+
+    It unregisters a module of type Model.
+      o [String] [Optional] modelname: name of the model module. If not
+        specified, all modules of type Model will be unregistered. 
+  *
+
+
+            [void] unregisterView(viewname)
+
+    It unregisters a module of type View.
+      o [String] [Optional] viewname: name of the view module. If not
+        specified, all modules of type View will be unregistered. 
+  *
+
+
+            [void] unregisterController(controllername)
+
+    It unregisters a module of type Controller.
+      o [String] [Optional] controllername: name of the controller
+        module. If not specified, all modules of type Controller will be
+        unregistered. 
+  *
+
+
+            [void] unregisterHelper(helpername)
+
+    It unregisters a module of type Helper.
+      o [String] [Optional] helpername: name of the helper module. If
+        not specified, all modules of type Helper will be unregistered. 
+  *
+
+
+            [void] unregisterAll()
+
+    It unregisters all modules in the following order: Helpers, Models,
+    Views, Controllers.
+  *
+
+
+            [function] Model(modelname)
+
+    It returns a callback function that returns the Model module
+    modelname if called.
+      o [String] [Optional] modelname: name of the model module. If not
+        specified, all modules of type Model will be returned.
+      o [function] return value: a callback function that returns the
+        Model modelname if called. 
+  *
+
+
+            [function] View(viewname)
+
+    It returns a callback function that returns the View module viewname
+    if called.
+      o [String] [Optional] viewname: name of the View module. If not
+        specified, all modules of type View will be returned.
+      o [function] return value: a callback function that returns the
+        View viewname if called. 
+  *
+
+
+            [function] Controller(controllername)
+
+    It returns a callback function that returns the Controller module
+    controllername if called.
+      o [String] [Optional] controllername: name of the Controller
+        module. If not specified, all modules of type Controller will be
+        returned.
+      o [function] return value: a callback function that returns the
+        Controller controllername if called. 
+  *
+
+
+            [function] Helper(helpername)
+
+    It returns a callback function that returns the Helper module
+    helpername if called.
+      o [String] [Optional] helpername: name of the Helper module. If
+        not specified, all modules of type Helper will be returned.
+      o [function] return value: a callback function that returns the
+        Helper helpername if called. 
+  *
+
+
+            [function] MVCHelper(helpername)
+
+    It returns a callback function that returns the MVCHelper module
+    helpername if called.
+      o [String] [Optional] helpername: name of the MVCHelper module. If
+        not specified, all modules of type MVCHelper will be returned.
+      o [function] return value: a callback function that returns the
+        MVCHelper helpername if called. 
+  *
+
+
+            [Boolean] modelExists(name)
+
+    It returns if the module name of type Model is already registered.
+      o [String] name: name of the Model module.
+      o [Boolean] return value: TRUE if module already registered,
+        otherwise FALSE. 
+  *
+
+
+            [Boolean] viewExists(name)
+
+    It returns if the module name of type View is already registered.
+      o [String] name: name of the View module.
+      o [Boolean] return value: TRUE if module already registered,
+        otherwise FALSE. 
+  *
+
+
+            [Boolean] controllerExists(name)
+
+    It returns if the module name of type Controller is already registered.
+      o [String] name: name of the Controller module.
+      o [Boolean] return value: TRUE if module already registered,
+        otherwise FALSE. 
+  *
+
+
+            [Boolean] helperExists(name)
+
+    It returns if the module name of type Helper is already registered.
+      o [String] name: name of the Helper module.
+      o [Boolean] return value: TRUE if module already registered,
+        otherwise FALSE. 
+  *
+
+
+            [void] initHelpers(params)
+
+    It triggers the method onInitialize(params) in all registered Helper
+    modules, if defined.
+      o [Optional] params: arguments to pass to onInitialize() methods
+        in all Helper modules.
+      o Example: ModularMVC.initHelpers([1, 2, 3]) would trigger
+        onInitialize([1, 2, 3]) in all Helper modules. 
+  *
+
+
+            [void] initModels(params)
+
+    It triggers the method onInitialize(params) in all registered Model
+    modules, if defined.
+      o [Optional] params: arguments to pass to onInitialize() methods
+        in all Model modules.
+      o Example: ModularMVC.initModels(4) would trigger onInitialize(4)
+        in all Model modules. 
+  *
+
+
+            [void] initViews(params)
+
+    It triggers the method onInitialize(params) in all registered View
+    modules, if defined.
+      o [Optional] params: arguments to pass to onInitialize() methods
+        in all View modules.
+      o Example: ModularMVC.initViews({'q'; 3}) would trigger
+        onInitialize({'q'; 3}) in all View modules. 
+  *
+
+
+            [void] initControllers(params)
+
+    It triggers the method onInitialize(params) in all registered
+    Controller modules, if defined.
+      o [Optional] params: arguments to pass to onInitialize() methods
+        in all Controller modules.
+      o Example: ModularMVC.initViews() would trigger onInitialize() in
+        all Controller modules. 
+  *
+
+
+            [void] initAll(params)
+
+    It triggers the method onInitialize(params) in all registered
+    modules, if defined, in the following order: Helpers, Models, Views,
+    Controllers.
+      o [Optional] params: arguments to pass to onInitialize() methods
+        in all modules.
+      o Example: ModularMVC.initAll() would trigger onInitialize() in
+        all modules. 
+  *
+
+
+            [Object] getHelperDocs(name)
+
+    It returns metadata information about the interface for the Helper
+    module name.
+      o [String] [Optional] name: name of the Helper module. If not
+        specified, matadata of all modules of type Helper will be returned.
+      o [Object] return value: matadata information about the interface
+        of the module. 
+  *
+
+
+            [Object] getModelDocs(name)
+
+    It returns metadata information about the interface for the Model
+    module name.
+      o [String] [Optional] name: name of the Model module. If not
+        specified, matadata of all modules of type Model will be returned.
+      o [Object] return value: matadata information about the interface
+        of the module. 
+  *
+
+
+            [Object] getViewDocs(name)
+
+    It returns metadata information about the interface for the View
+    module name.
+      o [String] [Optional] name: name of the View module. If not
+        specified, matadata of all modules of type View will be returned.
+      o [Object] return value: matadata information about the interface
+        of the module. 
+  *
+
+
+            [Object] getControllerDocs(name)
+
+    It returns metadata information about the interface for the
+    Controller module name.
+      o [String] [Optional] name: name of the Controller module. If not
+        specified, matadata of all modules of type Controller will be
+        returned.
+      o [Object] return value: matadata information about the interface
+        of the module. 
+  *
+
+
+            [Object] getAllDocs()
+
+    It returns metadata information about the interface for all
+    registered modules in alphabetical order.
+      o [Object] return value: matadata information about the interface
+        of the modules. 
+
+
+    Built-in ModularMVC Helpers (MVCHelper)
+
+The ModularMVC framework provides you with the following 4 built-in
+Helper modules:
+
+  * Language module <#LanguageModule>
+  * Notification module <#NotificationModule>
+  * Template module <#TemplateModule>
+  * Widget module <#WidgetModule>
+
+
+      Language module
+
+Following interface is provided by ModularMVC Language module:
+
+  *
+
+
+            [String] getCurrentLanguage()
+
+    It returns the current set language
+      o [String] return value: set language code
+  *
+
+
+            [void] properties(new_settings)
+
+    It sets the default configurations.
+      o [Object] new_settings: default settings. Keys are usefile,
+        filecontainsalltranslations, alltranslationsfilename, language,
+        loaddefaultlang, defaultlang, path, translations.
+  *
+
+
+            [void] reset()
+
+    It resets the settings (configurations) to the default values.
+  *
+
+
+            [String] translate(key, language)
+
+    It translates the given string in the given language
+    If the language ist not given, the default language is set.
+      o [String] key: string to translate
+      o [String] [Optional] language: language code
+      o [String] return value: translated string
+  *
+
+
+            [void] translatePage(pageid)
+
+    It translates and substitutes all occuring strings found within DOM
+    element with the id "pageid"
+    The strings must be wrapped with an DOM element (parent), which has
+    the attribute "lang" set.
+    Esample: <span lang="en">TRANSLATE_ME</span>
+      o [String] pageid: DOM element id
+
+
+      Notification module
+
+Following interface is provided by ModularMVC Notification module:
+
+  *
+
+
+            [void] create(notificationObj)
+
+    It creates a new notification.
+      o [Object] notificationObj: the notofication object that is to be
+        created. the keys are: replaceId, iconUrl, title, body, onshow,
+        onclick, onclose, onerror.
+  *
+
+
+            [void] show(notificationId)
+
+    It shows an already created notification.
+      o [String] notificationId: the notofication id that is to be shown
+  *
+
+
+            [void] cancel(notificationId)
+
+    It cancels an already created notification.
+      o [String] notificationId: the notofication id that is to be canceled
+
+
+      Template module
+
+Following interface is provided by ModularMVC Template module:
+
+  *
+
+
+            [void] configure(settings)
+
+    It sets the default configuration parameters.
+      o [Object] settings: the templates as key value pairs =>
+        templates: {templateId: template}
+  *
+
+
+            [String] proceed(template_id, data)
+
+    It returns the generated HTML code as string after rendering the
+    template by given data.
+      o [String] template_id: Id of the template that must be rendered
+      o [Object] data: The data that the given template should be
+        rendered with
+      o [String] return value: The generated HTML code.
+  *
+
+
+            [void] proceedAndRender(template_id, data, dom_id)
+
+    It renderes the specified template with the given data and appends
+    the result into the given DOM element.
+      o [String] template_id: Id of the template that must be rendered
+      o [Object] data: The data that the given template should be
+        rendered with
+      o [String] dom_id: The id of the DOM element where the rendered
+        template is written to.
+
+
+      Widget module
+
+Following interface is provided by ModularMVC Widget module:
+
+  *
+
+
+            [void] fireEvent(eventType, eventData, target)
+
+    It fires an event, used for inter widget communication.
+      o [String] eventType: A unique URI that specifies teh event that
+        must be fired.
+      o [Object] eventData: The data that is passed to the target widget
+        under the specified eventType
+      o [Array] [Optional] target: The id of the target widgets that are
+        allowd to accept and receive the event. If not specified, all
+        widgets are notified.
+  *
+
+
+            [String] getDefaultTitle()
+
+    returns the default title set in config file.
+      o [String] return value: default title set in config file.
+  *
+
+
+            [Number] getHeight()
+
+    returns the height of the widget.
+      o [Number] return value: height of the widget in pixel.
+  *
+
+
+            [?] getPreference(key)
+
+    returns the value of a preference variable.
+      o [String] key: The preference variable name
+      o [?] return value: the value of a preference variable. It is of
+        data type that is specified in config file for that preference
+        variable.
+  *
+
+
+            [String] getTitle()
+
+    returns the actual title of the widget.
+      o [String] return value: The actual title of the widget.
+  *
+
+
+            [void] httpGet(url, data, successCallback, errorCallback)
+
+    It starts an XMLHttp GET Request.
+      o [String] url: The URL. It must be relative for Ajax requests and
+        absolute for requests to the other domains
+      o [Object] data: key value pairs as GET paramaters to pass to the
+        specified URL.
+      o [Function] successCallback: a callback function that is called
+        to handle the response. The incomming response is passed to the
+        function as its argument.
+      o [Function] errorCallback: a callback function that is called if
+        the request fails.
+  *
+
+
+            [void] httpGetJSON(url, data, successCallback, errorCallback)
+
+    It starts an XMLHttp GET Request and expects the response in JSON
+    format. The response is prepared as JSON for the successCallback.
+      o [String] url: The URL. It must be relative for Ajax requests and
+        absolute for requests to the other domains
+      o [Object] data: key value pairs as GET paramaters to pass to the
+        specified URL.
+      o [Function] successCallback: a callback function that is called
+        to handle the response. The incomming response is passed to the
+        function as its argument.
+      o [Function] errorCallback: a callback function that is called if
+        the request fails.
+  *
+
+
+            [void] httpPost(url, data, successCallback, errorCallback,
+            contentType)
+
+    It starts an XMLHttp POST Request.
+      o [String] url: The URL. It must be relative for Ajax requests and
+        absolute for requests to the other domains
+      o [Object] data: key value pairs as POST paramaters to pass to the
+        specified URL.
+      o [Function] successCallback: a callback function that is called
+        to handle the response. The incomming response is passed to the
+        function as its argument.
+      o [Function] errorCallback: a callback function that is called if
+        the request fails.
+      o [String] [Optional] contentType: the content type that is
+        expected. It is ignored if data is set.
+  *
+
+
+            [void] openURL(url)
+
+    It opens an URL in the widget environment.
+      o [String] url: The URL that is to be opened bye the widget
+        environment
+  *
+
+
+            [void] registerEvent(eventType, eventCallback, source)
+
+    It registeres an event, used for inter widget communication.
+      o [String] eventType: A unique URI that specifies the event that
+        must be registered.
+      o [Function] eventCallback: a callback function that is called as
+        soon as a source widget fires the registered event. The
+        incomming data is passed to the function as its argument.
+      o [Array] [Optional] source: The id of the source widgets from
+        which the widget should accept and receive the event. If not
+        specified, all source widgets are accepted.
+  *
+
+
+            [void] setHttpCredentials(username, password)
+
+    It sets the HTTP credentials to be used for any XMLHttpRequests. see
+    httpXXX methods.
+      o [String] username: The HTTP username.
+      o [String] password: The HTTP password.
+  *
+
+
+            [void] setPreference(key, value)
+
+    It sets a preference value for the specified preference variable.
+      o [String] key: The preference variable name.
+      o [?] value: The value to be saved. It must be of data type that
+        is specified in config file for that preference variable
+  *
+
+
+            [void] setTitle(title)
+
+    It sets the widget title.
+      o [String] title: The widget title.
+  *
+
+
+            [void] trace()
+
+    It captures the user interaction with the widget.
+  *
+
+
+            [void] unregisterEvent(eventType, source)
+
+    It unregisteres an already registered event, used for inter widget
+    communication.
+      o [String] eventType: A unique URI that specifies the event that
+        must be unregistered.
+      o [Array] [Optional] source: The id of the source widgets for
+        which the widget should unregister the event. If not specified,
+        the registered event will be removed.
+

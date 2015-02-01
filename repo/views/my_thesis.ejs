@@ -1,0 +1,57 @@
+<% include header.ejs %>
+<body>
+<div class="container">
+
+        <% include navigation.ejs %>
+
+
+        <div class="page-header text-center">
+        <h1><span class="fa fa-files-o"/> My Thesis</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+    <hr/>
+    <br/>
+
+<% include search_bar.ejs %>
+
+    <hr/>
+    <br/>
+
+<ul>
+<p class="good"><b><%= typeof message!='undefined' ? message : '' %></b></p>
+</ul>
+
+    <div id="all">
+        <table>
+                        <% theses.forEach( function( item,index ){ %>
+
+            <tr>
+                <td>
+                    <h3> <%= index+1 %>. <a href="/doc_view/<%= item._id %>" id="document2"><%= item.title %></a></h3>
+                    <h5><a href="/api/update/<%= item._id %>" class="fa fa-pencil-square-o"></a></h5>
+                    <h5><a href="/api/delete/<%= item._id %>" style="color: rgb(255,0,0)" class="fa fa-times"></a></h5>
+
+
+
+
+                    <ul>
+                                                <li>Author: <span id="a_surname"> <%= item.author_firstname %></span>, <span id="a_name"><%= item.author_lastname %> </span></li> <!--opens thesis.html with authors name already searched-->
+                                                <li>Mentor: <span id="m_surname"><%= item.mentor_firstname %></span>, <span id="m_name"><%= item.mentor_lastname %></span> </li>
+                                                <li>Type: <span id="type"><%= item.thesis_type.name %> </span></li>
+                                        </ul>
+
+               </td>
+            </tr>
+            <% }); %>
+
+        </table>
+    </div>
+        <br/>
+    <div id="footer" class="page-footer text-center">
+                <hr/>
+                <br/>
+        <p><span class="glyphicon glyphicon-copyright-mark"></span>Expendablezz</p> <!--copyright glyph don't work-->
+    </div>
+</div>
+</body>
+</html>
